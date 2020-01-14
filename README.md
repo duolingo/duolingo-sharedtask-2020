@@ -1,6 +1,6 @@
 # STAPLE 2020 README
 
-Welcome to the Duolingo 2020 Shared Task! The shared task website is here: [sharedtask.duolingo.com](sharedtask.duolingo.com).
+Welcome to the [Duolingo](https://www.duolingo.com/) 2020 Shared Task! The shared task website is here: [sharedtask.duolingo.com](http://sharedtask.duolingo.com/).
 
 This repository has code for:
 
