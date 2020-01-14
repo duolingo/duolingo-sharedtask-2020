@@ -5,15 +5,17 @@ Welcome to the [Duolingo](https://www.duolingo.com/) 2020 Shared Task! The share
 This repository has code for:
 
 * Scoring a predictions file
-* Training a model with [fairseq](https://github.com/pytorch/fairseq)
+* Training an example baseline model with [fairseq](https://github.com/pytorch/fairseq)
 
 Python 3.6+ is required. It is strongly recommended that you run this in a virtual environment.
+
+
 
 ## Scoring
 
 ### Requirements
 
-There are no separate requirements for running the scoring function.
+There are no special requirements for running the scoring function.
 
 ### Code
 
@@ -23,13 +25,14 @@ You can score a predicted file as follows (using the AWS baseline as example, an
 $ python staple_2020_scorer.py --goldfile staple-2020-train/en_vi/train.en_vi.2020-01-13.gold.txt  --predfile staple-2020-train/en_vi/train.en_vi.aws_baseline.pred.txt
 ```
 
+
 ## Training models
 
 If all you want to do is evaluation, then ignore this section.
 
-Most participants will probably write their own code for this task, but we also provide code for training standard 
-sequence-to-sequence models using fairseq. This doesn't necessarily produce the best results for this task, 
-but it may give you a jumpstart. This code is an adaptation of [translation tutorials](https://github.com/pytorch/fairseq/blob/master/examples/translation/README.md) from fairseq.
+Most participants will probably write their own code for this task, but we also provide code for training a vanilla
+sequence-to-sequence models using fairseq. This does not produce the best results for this task,
+but it is an obvious baseline and may give you a jumpstart. This code is an adaptation of [translation tutorials](https://github.com/pytorch/fairseq/blob/master/examples/translation/README.md) from fairseq.
 
 ### Requirements
 
@@ -51,7 +54,7 @@ $ pip install fairseq sacremoses subword_nmt sacrebleu tqdm
 
 ### Code
 
-The following files are provided.  
+The following files are provided.
 
 * `variables.sh` : common BASH variables
 * `preprocess.sh` : to preprocess the data for training with fairseq
@@ -60,7 +63,7 @@ The following files are provided.
 * `my_cands_extract.py` : used to convert outputs from fairseq into shared task format files (used in `run_pretrained.sh`).
 * `get_traintest_data.py` : converts shared task format files into fairseq-readable format (used in `preprocess.sh`).
 
-The most relevant files are `preprocess.sh`, `train.sh`, and `run_pretrained.sh`. 
+The most relevant files are `preprocess.sh`, `train.sh`, and `run_pretrained.sh`.
 
 Good luck!
 
