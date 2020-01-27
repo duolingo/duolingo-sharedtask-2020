@@ -15,6 +15,14 @@ table = str.maketrans(dict.fromkeys(string.punctuation))
 FIELDSEP = "|"
 
 def makeID(text: str) -> str:
+    """
+    Create a unique ID based on the value of the input text.
+
+    WARNING: This is typically used to create prompt IDs, but
+    because of issues with stray spaces in the prompts,
+    this may not always produce the ID you are expecting.
+    """
+    
     textID = hashlib.md5(text.lower().encode()).hexdigest()
     return f"prompt_{textID}"
     
