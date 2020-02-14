@@ -20,15 +20,15 @@ mkdir -p $tmp
 # Change this to the location where you downloaded the data.
 SHARED_TASK_DATA=$HOME/staple2020/staple-2020-train
 
-FOLDS=(train)
+FOLDS=(train dev test)
 
-for fold in $FOLDS; do
-    
+for fold in "${FOLDS[@]}"; do
+    echo $fold
     python get_traintest_data.py --fname ${SHARED_TASK_DATA}/${src}_${tgt}/${fold}.${src}_${tgt}.2020-01-13.gold.txt --srcfname $DATA/${fold}-sents.${src} --tgtfname $DATA/${fold}-sents.${tgt} --prefix ${fold}
 done
 
 echo "pre-processing train data..."
-for fold in $FOLDS; do
+for fold in "${FOLDS[@]}"; do
     for l in $src $tgt; do
         tok=${fold}-sents.tok.${l}
         cat $DATA/${fold}-sents.${l} | perl $TOKENIZER -threads 8 -l $l | perl $LC > $tmp/${fold}-sents.clean.${l}
@@ -51,7 +51,7 @@ python $BPEROOT/learn_bpe.py -s $BPE_TOKENS < $ALLTRAIN > $BPE_CODE
 
 # Then apply bpe
 outf=sents.clean.bpe
-for fold in $FOLDS; do
+for fold in "${FOLDS[@]}"; do
     for l in $src $tgt; do
         f=${fold}-sents.clean.${l}
         echo "Applying BPE to ${f}..."
@@ -70,4 +70,6 @@ mkdir ${DATA}/bin
 # Since we only provide training data, you may want to make your own split.
 fairseq-preprocess --source-lang $src --target-lang $tgt \
     --trainpref $DATA/train-${outf} --validpref $DATA/dev-${outf} --testpref $DATA/test-${outf} \
-    --destdir ${DATA}/bin/ --workers 20 --dataset-impl raw
+    --destdir ${DATA}/bin/ --workers 20 --dataset-impl raw \
+    # --srcdict checkpoints/${src}_${tgt}/dict.${src}.txt \
+    # --tgtdict checkpoints/${src}_${tgt}/dict.${tgt}.txt
