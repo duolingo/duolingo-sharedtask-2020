@@ -17,9 +17,6 @@ tmp=$DATA/tmp
 mkdir -p $DATA
 mkdir -p $tmp
 
-# Change this to the location where you downloaded the data.
-SHARED_TASK_DATA=$HOME/staple2020/staple-2020-train
-
 FOLDS=(train dev test)
 
 for fold in "${FOLDS[@]}"; do

@@ -41,19 +41,16 @@ def main(origfile: str, infile: str, outfile: str, candlimit: int):
         elif line.startswith("T-"):
             num = int(sline[0].split("-")[-1])
             # this is the reference
-            #f.write(sline[1] + "\n")
             refd[num].append(sline[1] + "\n")
         elif line.startswith("H-"):
             num = int(sline[0].split("-")[-1])
             # this is the prediction, there may be many of these.
             if candlimit == -1 or cands < candlimit:
-                #out.write(sline[2] + "\n")
                 outd[num].append(sline[2] + "\n")
                 cands += 1
 
             # only write the first of these.
             if first:
-                #sf.write(sline[2] + "\n")
                 sysd[num].append(sline[2] + "\n")
                 first = False
         else:
