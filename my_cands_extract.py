@@ -31,30 +31,31 @@ def main(origfile: str, infile: str, outfile: str, candlimit: int):
     refd = defaultdict(list)
     sysd = defaultdict(list)
 
-    for line in f:
-        sline = line.strip().split("\t")
-        if line.startswith("S-"):
-            num = int(sline[0].split("-")[-1])
-            outd[num].append(sline[1])
-            first = True
-            cands = 0
-        elif line.startswith("T-"):
-            num = int(sline[0].split("-")[-1])
-            # this is the reference
-            refd[num].append(sline[1] + "\n")
-        elif line.startswith("H-"):
-            num = int(sline[0].split("-")[-1])
-            # this is the prediction, there may be many of these.
-            if candlimit == -1 or cands < candlimit:
-                outd[num].append(sline[2] + "\n")
-                cands += 1
+    with open(infile) as f:
+        for line in f:
+            sline = line.strip().split("\t")
+            if line.startswith("S-"):
+                num = int(sline[0].split("-")[-1])
+                outd[num].append(sline[1])
+                first = True
+                cands = 0
+            elif line.startswith("T-"):
+                num = int(sline[0].split("-")[-1])
+                # this is the reference
+                refd[num].append(sline[1] + "\n")
+            elif line.startswith("H-"):
+                num = int(sline[0].split("-")[-1])
+                # this is the prediction, there may be many of these.
+                if candlimit == -1 or cands < candlimit:
+                    outd[num].append(sline[2] + "\n")
+                    cands += 1
 
-            # only write the first of these.
-            if first:
-                sysd[num].append(sline[2] + "\n")
-                first = False
-        else:
-            pass
+                # only write the first of these.
+                if first:
+                    sysd[num].append(sline[2] + "\n")
+                    first = False
+            else:
+                pass
 
     with open(infile) as f, open(outfile, "w") as out, open(sysfile, "w") as sf, open(reffile, "w") as rf:    
         # orig_prompts has a particular order, and when we sort outd by 
