@@ -57,7 +57,7 @@ def main(origfile: str, infile: str, outfile: str, candlimit: int):
             else:
                 pass
 
-    with open(infile) as f, open(outfile, "w") as out, open(sysfile, "w") as sf, open(reffile, "w") as rf:    
+    with open(outfile, "w") as out, open(sysfile, "w") as sf, open(reffile, "w") as rf:    
         # orig_prompts has a particular order, and when we sort outd by 
         # the items, the order should match.
         for orig_prompt,item in zip(orig_prompts, sorted(outd.items())):
