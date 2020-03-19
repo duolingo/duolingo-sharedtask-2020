@@ -10,7 +10,7 @@ import string
 import sys
 from typing import Any, Dict, List, Set, Tuple
 
-table = str.maketrans(dict.fromkeys(string.punctuation))
+table = str.maketrans(dict.fromkeys(string.punctuation + "。？、"))
 
 FIELDSEP = "|"
 
