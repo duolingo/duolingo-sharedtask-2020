@@ -6,11 +6,10 @@ import json
 import os
 import random
 import re
-import string
 import sys
 from typing import Any, Dict, List, Set, Tuple
+import unicodedata
 
-table = str.maketrans(dict.fromkeys(string.punctuation))
 
 FIELDSEP = "|"
 
@@ -47,6 +46,16 @@ def read_trans_prompts(lines: List[str]) -> List[Tuple[str,str]]:
                 first = False
 
     return ids_prompts
+
+
+def strip_punctuation(text: str) -> str:
+    """
+    Remove punctuations of several languages, including Japanese.
+    """
+    return "".join(
+        itertools.filterfalse(lambda x: unicodedata.category(x).startswith("P"), text)
+    )
+
 
 def read_transfile(lines: List[str], strip_punc=True, weighted=False) -> Dict[str, Dict[str, float]]:
     """
@@ -85,7 +94,7 @@ def read_transfile(lines: List[str], strip_punc=True, weighted=False) -> Dict[st
                     weight = 1
 
                 if strip_punc:
-                    text = text.translate(table)
+                    text = strip_punctuation(text)
 
                 options[text] = float(weight)
 
