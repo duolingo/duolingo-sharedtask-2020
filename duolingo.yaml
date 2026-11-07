@@ -1,0 +1,8 @@
+schema_version: 1
+owner:
+  team: "c7a7bf3fa11f1001277d092e70070000" # Language Learning - Speech Recognition
+technology-type: [internal-tool]
+lifecycle:
+  state: production
+  context: ""
+compliance: []
