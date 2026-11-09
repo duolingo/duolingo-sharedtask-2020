@@ -1,7 +1,8 @@
 schema_version: 1
 owner:
   team: "c7a7bf3fa11f1001277d092e70070000" # Language Learning - Speech Recognition
-technology-type: [internal-tool]
+technology-type: []
+audience: internal
 lifecycle:
   state: frozen
   context: "2020 shared-task site; no commits since 2020-03 and no deploy path."
